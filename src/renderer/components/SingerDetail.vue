@@ -2,7 +2,6 @@
   <div class="singer-detail">
     <div class="header" :style="{backgroundImage:'url('+singerImg || ''+')'}">
       <p>{{singerName}}</p>
-      <MusicPlay :playurl="playurl"/>
     </div>
     <div class="songs">
       <ul>
