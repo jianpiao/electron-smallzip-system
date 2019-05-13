@@ -1,6 +1,7 @@
 <template>
   <div class="singer-detail">
     <div class="header" :style="{backgroundImage:'url('+data.singerImg+')'}">
+      <p @click="bakc" class="back">返回</p>
       <p>{{data.singer_name}}</p>
     </div>
     <div class="songs">
@@ -46,7 +47,8 @@ export default {
   data() {
     return {
       data: {
-        singer_mid: "0025NhlN2yWrP4"
+        singer_mid: "0025NhlN2yWrP4",
+        singerImg:''
       }
     };
   },
@@ -71,13 +73,23 @@ export default {
             console.log(res);
             
         })
+        this.$store.dispatch('fullscreenLoading',false)
       })
+    },
+    bakc() {
+      this.$router.bakc(-1)
     }
   }
 };
 </script>
 
 <style scoped>
+.singer-detail{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .header {
   position: absolute;
   top: 0;
@@ -87,6 +99,10 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.back {
+  color: #222;
 }
 
 .songs {

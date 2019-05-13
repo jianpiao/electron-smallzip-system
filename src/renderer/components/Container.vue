@@ -123,35 +123,38 @@ export default {
     let tempRouter = routes.options.routes[2].children
     let tempS = false
     let tempI = 0
-    tempRouter.map((item,index) => {
-      tempS ? '' : tempI = index //  不存在则记录
-      if(item.subIndex || item.subTitle || item.subIcon) {
-        tempS = false
-        this.items.forEach((sItem,sIndex) => {
-          if (sItem.index == item.subIndex || sItem.title == item.subIndex) {
-            tempS = true
-          }
-        })
-        //  如果已经存在
-        if (tempS) {
-          this.items[tempI - 1].subs.push({
-            index: item.path.substr(1),
-            title: item.title,
+    tempRouter.forEach((item,index) => {
+      //  首先排除type为not的
+      if (item.type != 'not') {
+        tempS ? '' : tempI = index //  不存在则记录
+        if(item.subIndex || item.subTitle || item.subIcon) {
+          tempS = false
+          this.items.forEach((sItem,sIndex) => {
+            if (sItem.index == item.subIndex || sItem.title == item.subIndex) {
+              tempS = true
+            }
           })
+          //  如果已经存在
+          if (tempS) {
+            this.items[tempI - 1].subs.push({
+              index: item.path.substr(1),
+              title: item.title,
+            })
+          } else {
+            this.items.push({
+              icon: item.subIcon,
+              index: item.subIndex,
+              title: item.subTitle,
+              subs:[]
+            })
+          }
         } else {
           this.items.push({
-            icon: item.subIcon,
-            index: item.subIndex,
-            title: item.subTitle,
-            subs:[]
+            icon: item.icon,
+            index: item.path.substr(1),
+            title: item.title
           })
         }
-      } else {
-        this.items.push({
-          icon: item.icon,
-          index: item.path.substr(1),
-          title: item.title
-        })
       }
     })
     this.items = this.items.filter(e => e.index !== '')
@@ -249,10 +252,11 @@ export default {
         'member':'员工管理',
         'xima':'喜马拉雅',
         'copy':'禁止复制',
+        'music':'音乐'
       }
 
       routes.options.routes[2].children.map((item,index) => {
-        
+
       })
       return routers[i]
     },
@@ -290,6 +294,9 @@ export default {
         case 'copy':
           this.breadcrumb = ['禁止复制']
           break;
+          case 'music':
+        this.breadcrumb = ['音乐']
+        break;
         default:
           break;
       }

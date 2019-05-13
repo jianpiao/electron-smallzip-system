@@ -90,10 +90,9 @@ export default new Router({
                     icon: "el-icon-location",
                 },
                 {
-                    path: '/singerDetail',
+                    path: '/singerDetail/:id',
                     component: resolve => require(['../components/SingerDetail.vue'], resolve),
-                    title: "歌手详情",
-                    icon: "el-icon-location",
+                    type:'not'
                 },
             ]
         }

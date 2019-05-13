@@ -15,12 +15,12 @@
       </ul>
     </div>
     <div class="sort">
+      <!-- :class="{current:currentSort == item ? true : false}" -->
       <ul>
         <li 
         v-for="(item, index) in sortList" 
         :key="index" 
         @click="jumpTag(item)"
-        :class="{current:currentSort == item ? true : false}"
         >
           {{item == `hot` ? `热` : item}}
         </li>
@@ -49,8 +49,7 @@ export default {
     }
   },
   mounted() {
-    this.testData()
-    // this.getData();
+    this.getData();
     window.addEventListener('scroll', this.handleScroll)
   },
   destroyed () {
@@ -74,13 +73,6 @@ export default {
       //   console.log(res);
         
       // })
-      axios.get('api/weather/city/101030100')
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
     },
     getData() {
       apiAddress().then(res => {
@@ -102,6 +94,7 @@ export default {
             data:res.filter(i => i.Findex ==e)
           })
         })
+        this.$store.dispatch('fullscreenLoading',false)
       });
     },
     jumpPage() {
@@ -113,8 +106,8 @@ export default {
     },
     //  查看歌手详情
     jumpSingerDetail(i) {
-      this.$router.push({
-        path: `/singerDetail/${i}`,
+      this.$router.replace({
+        path: `/singerDetail/${i}`
       })
     }
   },
@@ -143,8 +136,8 @@ export default {
 
 .singer-top-tag {
   position: fixed;
-  top: 0px;
-  left: 0;
+  top: 100px;
+  left: 251px;
   width: 100%;
   height: 30px;
   line-height: 30px;
