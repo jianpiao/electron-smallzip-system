@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div class="singer" id="singer">
-      <div class="singer-top-tag">{{singerTopTag | filterSingerTag}}</div>
+      <!-- <div class="singer-top-tag">{{singerTopTag | filterSingerTag}}</div> -->
       <ul class="singer-ul">
         <li v-for="(item, index) in list" :key="index" class="singer-ul-li">
           <div class="singer-tag" :id="item.tag">{{item.tag | filterSingerTag}}</div>
@@ -94,8 +94,8 @@ export default {
             data:res.filter(i => i.Findex ==e)
           })
         })
-        this.$store.dispatch('fullscreenLoading',false)
-      });
+      })
+      this.$store.dispatch('fullscreenLoading',false)
     },
     jumpPage() {
       this.$store.dispatch("setData", this.$store.getters.data);
@@ -107,7 +107,8 @@ export default {
     //  查看歌手详情
     jumpSingerDetail(i) {
       this.$router.replace({
-        path: `/singerDetail/${i}`
+        name:'singerDetail',
+        params:{id:i}
       })
     }
   },
@@ -165,6 +166,7 @@ export default {
   align-items: center;
   padding: 0 0 20px 20px;
   color: rgba(255, 255, 255, .5);
+  cursor: pointer;
 }
 
 .singer-ul-li ul li img {

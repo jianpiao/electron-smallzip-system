@@ -88,11 +88,13 @@
         </div>
       </el-container>
     </el-container>
+    <!-- <MusicPlay/> -->
   </div>
 </template>
 
 <script>
-import { Loading } from 'element-ui';
+import { Loading } from 'element-ui'
+// import MusicPlay from './MusicPlay'
 import routes from '@/router/index'
 const shell = require('electron').shell
 export default {
@@ -162,6 +164,7 @@ export default {
   computed: {
     onRoutes() {
       let index = this.$route.path.replace('/','')
+      if (index == 'singerDetail') return;
       this.addTab(index)
       this.curRouter = index
       return index
@@ -175,6 +178,9 @@ export default {
     screenHeight() {
       this.changePageHeight(this.screenHeight);
     }
+  },
+  components:{
+    // MusicPlay
   },
   methods: {
     changePageHeight(h) {

@@ -90,9 +90,13 @@ export default new Router({
                     icon: "el-icon-location",
                 },
                 {
-                    path: '/singerDetail/:id',
+                    path: '/singerDetail',
                     component: resolve => require(['../components/SingerDetail.vue'], resolve),
-                    type:'not'
+                    type:'not',
+                    name:'singerDetail',
+                    params:{
+                        id:''
+                    }
                 },
             ]
         }
