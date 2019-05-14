@@ -92,11 +92,17 @@ export default new Router({
                 {
                     path: '/singerDetail',
                     component: resolve => require(['../components/SingerDetail.vue'], resolve),
-                    type:'not',
+                    type:'not',  //  不在侧栏显示
                     name:'singerDetail',
                     params:{
                         id:''
                     }
+                },
+                {
+                    path: '/cloudMusic',
+                    component: resolve => require(['../views/CloudMusic.vue'], resolve),
+                    title: "网易云音乐",
+                    icon: "el-icon-location",
                 },
             ]
         }

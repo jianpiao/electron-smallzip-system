@@ -94,7 +94,6 @@
 
 <script>
 import { Loading } from 'element-ui'
-// import MusicPlay from './MusicPlay'
 import routes from '@/router/index'
 const shell = require('electron').shell
 export default {
@@ -179,9 +178,6 @@ export default {
       this.changePageHeight(this.screenHeight);
     }
   },
-  components:{
-    // MusicPlay
-  },
   methods: {
     changePageHeight(h) {
       //  改变高度
@@ -197,34 +193,27 @@ export default {
     tabClick(tab) {
       //  如果点击的路由和当前的路由一致则不需要跳转
       if (tab.name == this.curRouter) return;
-      new Promise(() => {
-        this.$store.dispatch('fullscreenLoading',true)
-      })
-      this.routerName(tab.name)
+      this.$store.dispatch('fullscreenLoading',true)
       this.changeBreadcrumb(tab.name)
       this.editableTabsValue = tab.name
       this.$router.replace(tab.name)
     },
     //  添加头部路由
     addTab(targetName) {
-      new Promise(() => {
-        this.$store.dispatch('fullscreenLoading',true)
-      })
       //  判断没有找到tab导航则添加
       if(!this.editableTabs.find(tab => tab.name === targetName)) {
         this.editableTabs.push({
           title: this.routerName(targetName),
           name: targetName
-        });
+        })
+        this.$store.dispatch('fullscreenLoading',true)
       }
       this.changeBreadcrumb(targetName)
       this.editableTabsValue = targetName;
     },
     //  移除头部tab
     tabRemove(targetName) {
-      new Promise(() => {
-        this.$store.dispatch('fullscreenLoading',true)
-      })
+      this.$store.dispatch('fullscreenLoading',true)
       let tabs = this.editableTabs;
         let activeName = this.editableTabsValue;
         if (activeName === targetName) {
@@ -239,7 +228,6 @@ export default {
           });
         }
         //  回到上一个tab
-        this.routerName(activeName)
         this.changeBreadcrumb(activeName)
         this.editableTabsValue = activeName;
         this.editableTabs = this.editableTabs.filter(tab => tab.name !== targetName);
@@ -247,6 +235,14 @@ export default {
     },
     //  路由名称过滤
     routerName(i) {
+      // this.items.map((item,index) => {
+      //   if (item.path == i) {
+      //     // console.log(item.title);
+          
+      //     i = item.title
+      //   }
+      // })
+      // return i
       let routers = {
         'container':'首页',
         'home':'首页',
@@ -258,54 +254,25 @@ export default {
         'member':'员工管理',
         'xima':'喜马拉雅',
         'copy':'禁止复制',
-        'music':'音乐'
+        'music':'音乐',
+        'cloudMusic':'网易云音乐'
       }
-
-      routes.options.routes[2].children.map((item,index) => {
-
-      })
       return routers[i]
     },
     //  面包屑导航
     changeBreadcrumb(i) {
-      //  改变面包屑
-      switch (i) {
-        case 'container':
-          this.breadcrumb = ['首页']
-          break;
-        case 'home':
-          this.breadcrumb = ['首页']
-          break;
-          case 'detail':
-          this.breadcrumb = ['详情']
-          break;
-        case 'other':
-          this.breadcrumb = ['人力资源','任务进度']
-          break;
-        case 'form':
-          this.breadcrumb = ['表单']
-          break;
-        case 'test':
-          this.breadcrumb = ['人力资源','文件上传']
-          break;
-        case 'workplace':
-          this.breadcrumb = ['人力资源','工作台']
-          break;
-        case 'member':
-          this.breadcrumb = ['人力资源','员工管理']
-          break;
-        case 'xima':
-          this.breadcrumb = ['喜马拉雅']
-          break;
-        case 'copy':
-          this.breadcrumb = ['禁止复制']
-          break;
-          case 'music':
-        this.breadcrumb = ['音乐']
-        break;
-        default:
-          break;
-      }
+      this.breadcrumb = []
+      this.items.map((item,index) => {
+        if (item.subs) {
+          //  path包含
+          this.breadcrumb.push(item.title)
+          item.subs.forEach((e,n) => {
+            e.index == i ? this.breadcrumb.push(e.title) : ''
+          })
+        } else {
+          item.path == i ? this.breadcrumb.push(item.title) : null
+        }
+      })
     },
     jump(i) {
       if(i==0){

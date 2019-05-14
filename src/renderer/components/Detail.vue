@@ -1,5 +1,5 @@
 <template>
-  <div class="detail" v-loading.fullscreen.lock="fullscreenLoading">
+  <div class="detail">
     <div class="handle-box">
       <el-input v-model="keyWord" placeholder="筛选关键词" class="handle-input mr10" suffix-icon="el-icon-search"></el-input>
       <el-button type="primary" icon="el-icon-plus" class="handle-button" @click="handleAdd">添加</el-button>

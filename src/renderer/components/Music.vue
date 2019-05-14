@@ -94,8 +94,10 @@ export default {
             data:res.filter(i => i.Findex ==e)
           })
         })
+        this.$store.dispatch('fullscreenLoading',false)
+      }).catch(err => {
+        this.$store.dispatch('fullscreenLoading',false)
       })
-      this.$store.dispatch('fullscreenLoading',false)
     },
     jumpPage() {
       this.$store.dispatch("setData", this.$store.getters.data);
@@ -171,7 +173,7 @@ export default {
 
 .singer-ul-li ul li img {
   border-radius: 50%;
-  widows: 50px;
+  width: 50px;
   height: 50px;
 }
 
