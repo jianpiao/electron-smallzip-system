@@ -20,6 +20,7 @@ const service = axios.create({
 // post请求头
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
 // axios.defaults.withCredentials = false
+
 // 请求拦截器
 service.interceptors.request.use(
     config => {
@@ -35,16 +36,21 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         if (response.status === 200) {
-            store.commit(`SHOW_MUSIC_PLAY`,`block`)
             return Promise.resolve(response);
         } else {
             store.commit(`FULL_SCREEN_LOADING`,false)
+            Notification({
+                title: `警告`,
+                message: `接收数据失败`,
+                type: 'error'
+            });
             return Promise.reject(response);
         }
     },
     // 服务器状态码不是200的情况    
     error => {
-        if (error.response.status) {
+        store.commit(`FULL_SCREEN_LOADING`,false)
+        if (error && error.response && error.response.status) {
             switch (error.response.status) {
                 // 401: 未登录                
                 // 未登录则跳转登录页面，并携带当前页面的路径                
@@ -57,7 +63,7 @@ service.interceptors.response.use(
                     Notification({
                         title: `${error.response.status}警告`,
                         message: error.response.status,
-                        type: 'warning'
+                        type: 'error'
                       });
                     break;
                 // 403 token过期                
@@ -68,25 +74,32 @@ service.interceptors.response.use(
                     Notification({
                         title: `${error.response.status}警告`,
                         message: `登录已经过期，请重新登录`,
-                        type: `warning`
+                        type: `error`
                       });
                 // 404请求不存在                
                 case 404:
                 Notification({
                     title: `${error.response.status}警告`,
                     message: `网络请求不存在`,
-                    type: `warning`
+                    type: `error`
                   });
                     break;
                 // 其他错误，直接抛出错误提示                
                 default:
                 Notification({
                     title: `${error.response.status}警告`,
-                    message: error.response.status,
-                    type: 'warning'
+                    message: `数据请求失败`,
+                    type: 'error'
                   });
             }
             return Promise.reject(error.response);
+        } else {
+            Notification({
+                title: `警告`,
+                message: `网络链接失败`,
+                type: 'error'
+            });
+            return Promise.reject(`err`);
         }
     }
 );

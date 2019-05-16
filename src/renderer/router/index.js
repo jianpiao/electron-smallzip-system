@@ -99,10 +99,25 @@ export default new Router({
                     }
                 },
                 {
-                    path: '/cloudMusic',
-                    component: resolve => require(['../views/CloudMusic.vue'], resolve),
+                    path: '/cmLogin',
+                    component: resolve => require(['../views/cloudMusic/CMLoginState.vue'], resolve),
                     title: "网易云音乐",
                     icon: "el-icon-location",
+                },
+                {
+                    path: '/cloudMusic',
+                    component: resolve => require(['../views/cloudMusic/CloudMusic.vue'], resolve),
+                    type:'not',  //  不在侧栏显示
+                },
+                {
+                    path: '/cmSingerDetail',
+                    component: resolve => require(['../views/cloudMusic/CMSingerDetail.vue'], resolve),
+                    type:'not',  //  不在侧栏显示
+                },
+                {
+                    path: '/cmSingerHotList',
+                    component: resolve => require(['../views/cloudMusic/CMSingerHotList.vue'], resolve),
+                    type:'not',  //  不在侧栏显示
                 },
             ]
         }

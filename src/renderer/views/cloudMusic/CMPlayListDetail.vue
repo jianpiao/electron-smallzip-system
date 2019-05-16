@@ -1,8 +1,9 @@
+// 歌单列表
 <template>
-  <div class="cloud-music">
-    <div class="singer" id="singer">
+  <div class="play-list">
+    <div class="singer">
       <ul>
-        <li v-for="(item, index) in list" :key="index" @click="jumpSingerDetail(item.name)">
+        <li v-for="(item, index) in list" :key="index">
           <img :src="item.picUrl">
           <div>{{item.name}}</div>
         </li>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import { CMSingerArtist } from '../request/cloudApi'
+import { CMPlaylistDetail } from '../../request/cloudApi'
 import axios from 'axios'
 export default {
   name: "CloudMusic",
@@ -22,30 +23,22 @@ export default {
     };
   },
   mounted() {
-    this.getData();
+    this.getData()
   },
   methods: {
     getData() {
-      CMSingerArtist().then(res => {
-        this.list = res.list.artists
+      CMPlaylistDetail().then(res => {
+          console.log(res);
+          
         this.$store.dispatch('fullscreenLoading',false)
-      }).catch(err => {
-        this.$notify({
-          title: `警告`,
-          message: err,
-          type: 'warning'
-        })
       })
-    },
-    jumpSingerDetail(i) {
-      
     }
   }
 };
 </script>
 
 <style lang="sass" scoped>
-.cloud-music 
+.play-list
   position: relative;padding:20px;
   background: #222;    
   

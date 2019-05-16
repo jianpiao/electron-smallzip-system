@@ -12,6 +12,7 @@
         </li>
       </ul>
     </div>
+    <MusicPlay :playurl="playurl"/>
   </div>
 </template>
 

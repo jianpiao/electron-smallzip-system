@@ -120,7 +120,7 @@ export default {
     window.onresize = () => {
       this.screenHeight = document.documentElement.clientHeight;
     }
-
+    //  获取路由
     let tempRouter = routes.options.routes[2].children
     let tempS = false
     let tempI = 0
@@ -163,7 +163,10 @@ export default {
   computed: {
     onRoutes() {
       let index = this.$route.path.replace('/','')
-      if (index == 'singerDetail') return;
+      if (index == `singerDetail` || 
+          index == `cmSingerDetail` ||
+          index == `cmLogin` || 
+          index == `cmSingerHotList`) return;
       this.addTab(index)
       this.curRouter = index
       return index
@@ -265,12 +268,14 @@ export default {
       this.items.map((item,index) => {
         if (item.subs) {
           //  path包含
-          this.breadcrumb.push(item.title)
           item.subs.forEach((e,n) => {
-            e.index == i ? this.breadcrumb.push(e.title) : ''
+            if (e.index == i) {
+              this.breadcrumb.push(item.title)
+              this.breadcrumb.push(e.title)
+            }
           })
         } else {
-          item.path == i ? this.breadcrumb.push(item.title) : null
+          item.index == i ? this.breadcrumb.push(item.title) : null
         }
       })
     },
