@@ -14,9 +14,9 @@ const state = {
 
 
 const getters = {
-    fullscreenLoading: fullscreenLoading => state.index.fullscreenLoading,
-    showMusicPlay: showMusicPlay => state.index.showMusicPlay,
-    playurl: playurl => state.index.playurl,
+    fullscreenLoading: fullscreenLoading => Index.fullscreenLoading,
+    showMusicPlay: showMusicPlay => Index.showMusicPlay,
+    playurl: playurl => Index.playurl,
     userinfo: userinfo => state.cloudMusic.userinfo
 }
 
