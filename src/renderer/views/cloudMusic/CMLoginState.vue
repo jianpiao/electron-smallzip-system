@@ -75,8 +75,8 @@ export default {
 <style scoped>
 #backgroun {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 251px);
+  height: calc(100% - 100px);
   background-color: #242f42;
   background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557988714789&di=fb81a1d4193fed52a916b7235dedb4a3&imgtype=0&src=http%3A%2F%2Fp1.music.126.net%2FmAkD_e44t-hSslacfWZdUg%3D%3D%2F109951163217656197.jpg');
   background-size: cover;
@@ -95,21 +95,19 @@ export default {
   font-size: 1.6rem;
   font-family: '华文行楷';
 }
-.ms-login {
-  text-align: center;
-}
 .ms-login img {
   text-align: center;
 }
 .ms-login {
   position: absolute;
-  left: 50%;
-  top: 40%;
+  left: calc(50% - 50px);
+  top: 36%;
   width: 300px;
-  margin: -150px 0 0 -190px;
+  margin: 0 auto;
   padding: 40px;
   border-radius: 5px;
   background: #fff;
+  text-align: center;
 }
 .login-btn {
   text-align: center;

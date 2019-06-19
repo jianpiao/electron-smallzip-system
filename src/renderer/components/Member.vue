@@ -31,7 +31,7 @@
         <el-table-column prop="email" label="邮箱"></el-table-column>
         <el-table-column prop="position" label="职位"></el-table-column>
         <el-table-column prop="date" label="入职时间"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作"  width="150">
             <template slot-scope="scope">
                 <el-button type="primary" @click="handleModify(scope.row)" size="small">修改</el-button>
                 <el-button type="danger" size="small" @click="handleDelete">删除</el-button>
